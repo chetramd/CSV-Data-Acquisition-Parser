@@ -28,7 +28,7 @@ fplot<- function (fdata,sensors,plot_limits,ylabs,legend_cols=2,output_prefix="d
   
     
     # Data frame correlates to VAV number to building quadrant
-    quads <- data.frame(read.csv("C:\\Users\\CUNYBPL8\\Desktop\\Graphs\\VAV_box_locations.csv"));
+    quads <- data.frame(read.csv("C:\\Users\\CUNYBPL2\\Desktop\\Graphs\\VAV_box_locations.csv"));
   
     # Month Vectors
     months <- c("January","February","March","April","May","June","July","August","September","October","November","December");
@@ -384,41 +384,32 @@ print
         fplot
         (
             # Parameter: Datafile
-            fdata = "C:\\Users\\CUNYBPL8\\Desktop\\Graphs\\Data\\20130910-181957-ted.csv",
+            fdata = "C:\\Users\\CUNYBPL2\\Desktop\\Graphs\\20130923-152657-ted.csv",
             sensors = 
               list
               ( 
                 ###################################### AHU #############################################
                 
-                # AHU Supply Temp - Color: Light Red
-                list(name="AHU:SUP.TEMP",yaxis=2,color="#FF6767",ltitle="AHU Supply Temp"),
+                # AHU Supply Temp - Color: RED
+                list(name="AHU:SUP.TEMP",yaxis=2,color="#FF0000",ltitle="AHU Supply Temp"),
                 
-                # AHU Return Temp - Color: Red  
-                list(name="AHU:RET.TEMP",yaxis=2,color="#FF0000",ltitle="AHU Return Temp"),
+                # AHU Return Temp - Color: ORANGE 
+                list(name="AHU:RET.TEMP",yaxis=2,color="#FFA500",ltitle="AHU Return Temp"),
                 
-                # AHU Supply Temperature SetPt - Color: Dark Red
-                list(name="AHU:SUP.TEMP.STPT",yaxis=2,color="#970000",ltitle="AHU Supply Temp SetPt"),
+                # AHU Supply Temperature SetPt - Color: BLUE
+                list(name="AHU:SUP.TEMP.STPT",yaxis=2,color="#0000FF",ltitle="AHU Supply Temp SetPt"),
                 
-                
-                ###################################### ACS #############################################
-                
-                # ACS Outside Air Temperature - Color: Light Green and Color2: Light Blue
-                list(name="ACS:OAT",yaxis=2,color="#67FF67",color2="#6767FF",ltitle="Outside Air Temp"),
-                
-                # ACS Supply Temperature - Color: Green and Color2: Blue
-                list(name="ACS:SUP.TEMP",yaxis=2,color="#00FF00",color2="#0000FF",ltitle="Supply Temp",peaklim=4:99,peakrng=1),
-                
-                # ACS Supply Temperature Setpoint - Color: Dark Green and Color2: Dark Blue
-                list(name="ACS:SUP.TEMP.STPT",yaxis=2,color="#009700",color2="#000097", ltitle="Supply Temp SetPt"),
+                # AHU Supply Temperature SetPt - Color: GREEN
+                list(name="AHU:OAT",yaxis=2,color="#00FF00",ltitle="AHU Outside Air Temp"),
                 
                 
                 ###################################### VAV #############################################
                 
                 # VAV Damper Position - Color: Light Purple   
-                list(name="VAV:DMPR POS",yaxis=1,color="#B367B3",ltitle="VAV Damper Position"),
+                list(name="VAV:DMPR POS",yaxis=1,color="#FFFFFF",ltitle="VAV Damper Position"),
                 
                 # VAV Room Temperature - Color: Dark Purple
-                list(name="VAV:ROOM TEMP",yaxis=2,color="#800080",ltitle="VAV Room Temp",peaklim=68:99,peakrng=2)
+                list(name="VAV:ROOM TEMP",yaxis=2,color="#FFFFFF",ltitle="VAV Room Temp",peaklim=68:99,peakrng=2)
                 
               ),
             plot_limits=4:99,
