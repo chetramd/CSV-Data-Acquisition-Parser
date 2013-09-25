@@ -11,7 +11,7 @@
 #   plot_limits : limits
 #   ylabs       : Y - Label
 #   Legend_cols : Legend using Columns
-#   Output Prefix: Data Graph
+#   Output Prefix: Output PDF Name .pdf
 #   Prezero     : False
 #   Print       : Print to Console : False
 #   Year        : 2013
@@ -19,7 +19,7 @@
 
 
 
-fplot<- function (fdata,sensors,vav_locations,plot_limits,ylabs,legend_cols=2,output_prefix="data_graph",prezero=F,print=F,year,plot_style) 
+fplot<- function (fdata,sensors,vav_locations,plot_limits,ylabs,legend_cols=2,output_prefix,prezero=F,print=F,year,plot_style) 
 { 
     # Read fdata, remove invalid rows and reorder sensor list
     data <- read.csv(fdata,colClasses="character");
@@ -422,10 +422,10 @@ print
                 list(name="VAV:ROOM TEMP",yaxis=2,color="#FFFFFF",ltitle="VAV Room Temp",peaklim=68:99,peakrng=2)
                 
               ),
-            #plot_limits=4:99,
+            
             plot_limits = 4:60,
             ylabs=c("VAV Damper Open (%)",expression(paste("Temperature (",degree,"F)"))),
-            output_prefix="unit_plots",
+            output_prefix="Weekly_Plot",
             year=2013,
             plot_style = "l"
         )
