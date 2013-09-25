@@ -7,6 +7,7 @@
 # Variables: 
 #   fdata       : csv datafile
 #   sensors     : sensor lists
+#   vav_locations: Valve Numbers by Quadrant Systems
 #   plot_limits : limits
 #   ylabs       : Y - Label
 #   Legend_cols : Legend using Columns
@@ -14,10 +15,11 @@
 #   Prezero     : False
 #   Print       : Print to Console : False
 #   Year        : 2013
-#   Plot_Style  : "L" for Connected Lines, "P" for Points 
+#   Plot_Style  : "L" for Connected Lines, "P" for Points
 
 
-fplot<- function (fdata,sensors,plot_limits,ylabs,legend_cols=2,output_prefix="data_graph",prezero=F,print=F,year,plot_style) 
+
+fplot<- function (fdata,sensors,vav_locations,plot_limits,ylabs,legend_cols=2,output_prefix="data_graph",prezero=F,print=F,year,plot_style) 
 { 
     # Read fdata, remove invalid rows and reorder sensor list
     data <- read.csv(fdata,colClasses="character");
@@ -26,9 +28,11 @@ fplot<- function (fdata,sensors,plot_limits,ylabs,legend_cols=2,output_prefix="d
     data <- data[complete.cases(data),];
     data <- data[order(data[,1]),];
   
+    # Data Matrix data[,2:99]
+    
     
     # Data frame correlates to VAV number to building quadrant
-    quads <- data.frame(read.csv("C:\\Users\\CUNYBPL2\\Desktop\\Graphs\\VAV_box_locations.csv"));
+    quads <- data.frame(read.csv(vav_locations));
   
     # Month Vectors
     months <- c("January","February","March","April","May","June","July","August","September","October","November","December");
@@ -201,6 +205,7 @@ fplot<- function (fdata,sensors,plot_limits,ylabs,legend_cols=2,output_prefix="d
                 rc<<-rc+1;
               }
           });
+    
     sensor_data <- lapply(c(vav_data,ahu_data,acs2_data,acs1_data),function(sm) 
     {
       return(data.frame(sm[!is.na(sm[,1]),1],matrix(as.numeric(as.matrix(sm[!is.na(sm[,1]),-1])),nrow=nrow(sm[!is.na(sm[,1]),])),stringsAsFactors=F));
@@ -241,6 +246,7 @@ fplot<- function (fdata,sensors,plot_limits,ylabs,legend_cols=2,output_prefix="d
     rowranges <- matrix(c(1:nrow(sensor_data[[1]]),rep(NA,filerows*data_sections-nrow(sensor_data[[1]]))),nrow=filerows,ncol=data_sections);
     lrows <- ceiling(length(legend_titles)/legend_cols);
   
+    
     # Output Data for Each Section
     
     for(g in 1:data_sections) 
@@ -358,7 +364,7 @@ fplot<- function (fdata,sensors,plot_limits,ylabs,legend_cols=2,output_prefix="d
         # Draw a box on plot
         box();
         
-        # Plot Cntr
+        # Sensor Counter
         n<-n+1;
     }
       
@@ -383,8 +389,12 @@ print
       ( 
         fplot
         (
+            # Parameter: Valve # Series
+            vav_locations ="C:\\Users\\CUNYBPL2\\Desktop\\Graphs\\VAV_box_locations.csv",
+            
             # Parameter: Datafile
-            fdata = "C:\\Users\\CUNYBPL2\\Desktop\\Graphs\\20130923-152657-ted.csv",
+            fdata = "C:\\Users\\CUNYBPL2\\Desktop\\Graphs\\20130925-151804-ted.csv",
+            
             sensors = 
               list
               ( 
@@ -412,13 +422,14 @@ print
                 list(name="VAV:ROOM TEMP",yaxis=2,color="#FFFFFF",ltitle="VAV Room Temp",peaklim=68:99,peakrng=2)
                 
               ),
-            plot_limits=4:99,
-            ylabs=c("VAV Damper % Open",expression(paste("Temperature (",degree,"F)"))),
+            #plot_limits=4:99,
+            plot_limits = 4:60,
+            ylabs=c("VAV Damper Open (%)",expression(paste("Temperature (",degree,"F)"))),
             output_prefix="unit_plots",
             year=2013,
             plot_style = "l"
         )
-        ," plots completed.",sep=""
+        ," Plots Successfully Completed.",sep=""
       )
     ) 
   )
